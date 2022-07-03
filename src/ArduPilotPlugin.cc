@@ -1225,7 +1225,7 @@ void ArduPilotPlugin::ReceiveMotorCommand()
        //gzdbg << "servo_command [" << i << "]: " << pkt.motorSpeed[i] << "\n";
      }
     
-    if(pkt.motorSpeed[15]==-1) //TTR - ADDED TO SOLVE UNWANTED MOVEMENTS AT START
+    if(pkt.motorSpeed[15]>=-1) //TTR - ADDED TO SOLVE UNWANTED MOVEMENTS AT START
     {
      goControl = true;
     }
