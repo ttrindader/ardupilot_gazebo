@@ -1227,10 +1227,10 @@ void ArduPilotPlugin::ReceiveMotorCommand()
     
     if(pkt.motorSpeed[15]>=-1) //TTR - ADDED TO SOLVE UNWANTED MOVEMENTS AT START
     {
-     goControl = true;
+     goControl = false;
     }
     else{
-     goControl = false;
+     goControl = true;
     }
 
     if (!this->dataPtr->arduPilotOnline)
