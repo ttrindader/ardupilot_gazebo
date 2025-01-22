@@ -133,10 +133,16 @@ link_directories(
         ${GAZEBO_LIBRARY_DIRS}
         )
 
+
+include_directories("/usr/include/GeographicLib")
+link_directories("/usr/lib" "/usr/local/lib")
+
+
 set (plugins_single_header
         ArduPilotPlugin
         ArduCopterIRLockPlugin
         GimbalSmall2dPlugin
+        GeoCoordinatesPlugin
         )
 
 add_library(ArduCopterIRLockPlugin SHARED src/ArduCopterIRLockPlugin.cc)
@@ -144,6 +150,10 @@ target_link_libraries(ArduCopterIRLockPlugin ${GAZEBO_LIBRARIES})
 
 add_library(ArduPilotPlugin SHARED src/ArduPilotPlugin.cc)
 target_link_libraries(ArduPilotPlugin ${GAZEBO_LIBRARIES})
+
+add_library(geo_coordinates_plugin SHARED src/GeoCoordinatesPlugin.cc)
+target_link_libraries(geo_coordinates_plugin ${GAZEBO_LIBRARIES})
+target_link_libraries(geo_coordinates_plugin ${GAZEBO_LIBRARIES} Geographic)
 
 if("${GAZEBO_VERSION}" VERSION_LESS "8.0")
     add_library(GimbalSmall2dPlugin SHARED src/GimbalSmall2dPlugin.cc)
@@ -153,6 +163,8 @@ endif()
 
 install(TARGETS ArduCopterIRLockPlugin DESTINATION ${GAZEBO_PLUGIN_PATH})
 install(TARGETS ArduPilotPlugin DESTINATION ${GAZEBO_PLUGIN_PATH})
+install(TARGETS geo_coordinates_plugin DESTINATION ${GAZEBO_PLUGIN_PATH})
+
 
 install(DIRECTORY models DESTINATION ${GAZEBO_MODEL_PATH}/..)
 install(DIRECTORY worlds DESTINATION ${GAZEBO_MODEL_PATH}/..)
